@@ -26,8 +26,8 @@ Database design for an Instagram-based thrift & handmade store. It manages produ
 - Order → Payment (1:1)  
 - Order → Shipping (1:1)  
 
-## 🖼️ ER Diagram
-![ER Diagram](erd-diagram.png)
+## ER Diagram
+![ER Diagram](diagram-export-4-6-2026-11_13_43-PM.png)
 
 ---
  Database design assignment
