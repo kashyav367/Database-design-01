@@ -1,0 +1,85 @@
+title Instagram Thrift Creator Store
+typeface rough
+notation chen
+customer[icon:user ,color:blue]{
+customerid string pk
+name varchar(50)
+email varchar(100)
+phone varchar(15)
+state varchar(50)
+city  varchar(50)
+country varchar(50) 
+}
+
+product[icon: package, color: yellow]{
+product_id string pk
+name varchar 100
+price decimal(10,2)
+type  ENUM('thrilled','handmade')
+size  ENUM('s','M','L','XL','XXL')
+color VARCHAR(50)
+condition ENUM('good','average','decent','Awesome')
+stock    int
+}
+
+thrifted_product[icon:shirt, color: purple]{
+  thrift_id string pk
+  product_id string fk
+  brand varchar(100)
+  purchase_source varchar(100)
+}
+
+handmade_product[icon: shirt, color: purple]{
+  handmade_id string pk
+  product_id string fk
+  material varchar(100)
+  crafting_time varchar(50)
+}
+
+order[color: green]{
+  order_id string pk
+  customer_id string fk
+  total_amount decimal(10,2)
+  status ENUM('pending','confirmed','dispatched','delivered')
+  created_at timestamp
+}
+
+order_items[color]{
+order_item_id string pk
+order_id string fk
+product_id string fk
+quantity int
+price_at_purchase decimal(10,2)
+}
+
+payment[icon:payment,color:blue]{
+  payment_id string pk
+  order_id string fk
+  method ENUM('upi', 'card' , 'bank')
+  status ENUM('pending','paid','failed')
+  amount decimal(10,2)
+  created_at timestamp
+  updated_at timestamp
+}
+
+shipping[icon:shopping-bag,color:red]{
+  shipping_id string pk
+  order_id string fk
+  address text
+  status ENUM(preparing,shipped,in_transit,delivered)
+  delivered_at: timestamp
+}
+
+customer.customer_id < order.customer_id
+
+order.order_id < order_items.order_id
+
+product.product_id < order_items.product_id
+
+order.order_id - payment.order_id
+
+order.order_id - shipping.order_id
+
+product.product_id - thrifted_product.product_id
+
+product.product_id - handmade_product.product_id
